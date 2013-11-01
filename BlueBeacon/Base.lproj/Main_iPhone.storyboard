@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Root View Controller-->
+        <!--View Controller - Beacons-->
         <scene sceneID="e08-Ae-Xer">
             <objects>
                 <tableViewController id="4iq-pl-91m" customClass="YCViewController" sceneMemberID="viewController">
@@ -23,7 +23,9 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="jsu-BV-EZX"/>
+                    <navigationItem key="navigationItem" title="Beacons" id="jsu-BV-EZX">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="mND-mI-Fk5"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ja1-iv-vLY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
