@@ -12,7 +12,7 @@
 @interface YCViewController ()
 
 @property (nonatomic, strong) BluetoothLEService *bleService;
-@property (nonatomic, strong) NSMutableArray *devices;
+@property (nonatomic, strong) NSMutableArray *availableDevices;
 
 @end
 
@@ -23,8 +23,10 @@
     [super viewDidLoad];
 
     _bleService = [[BluetoothLEService alloc] init];
-    [_bleService.availableDevicesSignal subscribeNext:^(NSArray *d) {
-        
+    [_bleService.availableDevicesSignal subscribeNext:^(NSArray *devices) {
+        for (CBPeripheral *p in devices) {
+            NSLog(@"p %@", p);
+        }
     }];
 }
 
