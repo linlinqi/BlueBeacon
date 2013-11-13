@@ -7,31 +7,25 @@
 //
 
 #import "YCViewController.h"
+#import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
 
 @interface YCViewController ()
+
+@property (nonatomic, strong) BluetoothLEService *bleService;
+@property (nonatomic, strong) NSMutableArray *devices;
 
 @end
 
 @implementation YCViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    _bleService = [[BluetoothLEService alloc] init];
+    [_bleService.availableDevicesSignal subscribeNext:^(NSArray *d) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,5 +110,10 @@
 }
 
  */
+
+#pragma mark - IBAction
+
+- (IBAction)refreshTapped:(id)sender {
+}
 
 @end
