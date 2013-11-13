@@ -15,7 +15,6 @@
 		1BCFD863182377C100DF0718 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCFD862182377C100DF0718 /* main.m */; };
 		1BCFD867182377C100DF0718 /* YCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCFD866182377C100DF0718 /* YCAppDelegate.m */; };
 		1BCFD86A182377C200DF0718 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BCFD868182377C200DF0718 /* Main_iPhone.storyboard */; };
-		1BCFD86D182377C200DF0718 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BCFD86B182377C200DF0718 /* Main_iPad.storyboard */; };
 		1BCFD872182377C200DF0718 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BCFD871182377C200DF0718 /* Images.xcassets */; };
 		1BCFD879182377C200DF0718 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCFD878182377C200DF0718 /* XCTest.framework */; };
 		1BCFD87A182377C200DF0718 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCFD856182377C100DF0718 /* Foundation.framework */; };
@@ -49,7 +48,6 @@
 		1BCFD865182377C100DF0718 /* YCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YCAppDelegate.h; sourceTree = "<group>"; };
 		1BCFD866182377C100DF0718 /* YCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCAppDelegate.m; sourceTree = "<group>"; };
 		1BCFD869182377C200DF0718 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		1BCFD86C182377C200DF0718 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		1BCFD871182377C200DF0718 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1BCFD877182377C200DF0718 /* BlueBeaconTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueBeaconTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BCFD878182377C200DF0718 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -125,7 +123,6 @@
 				1BCFD865182377C100DF0718 /* YCAppDelegate.h */,
 				1BCFD866182377C100DF0718 /* YCAppDelegate.m */,
 				1BCFD868182377C200DF0718 /* Main_iPhone.storyboard */,
-				1BCFD86B182377C200DF0718 /* Main_iPad.storyboard */,
 				1BCFD871182377C200DF0718 /* Images.xcassets */,
 				1BCFD85D182377C100DF0718 /* Supporting Files */,
 			);
@@ -240,7 +237,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BCFD86D182377C200DF0718 /* Main_iPad.storyboard in Resources */,
 				1BCFD872182377C200DF0718 /* Images.xcassets in Resources */,
 				1BCFD86A182377C200DF0718 /* Main_iPhone.storyboard in Resources */,
 				1BCFD861182377C100DF0718 /* InfoPlist.strings in Resources */,
@@ -334,14 +330,6 @@
 				1BCFD869182377C200DF0718 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		1BCFD86B182377C200DF0718 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1BCFD86C182377C200DF0718 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		1BCFD881182377C200DF0718 /* InfoPlist.strings */ = {
@@ -439,6 +427,7 @@
 				GCC_PREFIX_HEADER = "BlueBeacon/BlueBeacon-Prefix.pch";
 				INFOPLIST_FILE = "BlueBeacon/BlueBeacon-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -453,6 +442,7 @@
 				GCC_PREFIX_HEADER = "BlueBeacon/BlueBeacon-Prefix.pch";
 				INFOPLIST_FILE = "BlueBeacon/BlueBeacon-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
