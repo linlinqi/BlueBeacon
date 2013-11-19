@@ -35,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B02DD25183B4D88006B2D06 /* YCDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YCDefine.h; path = Classes/YCDefine.h; sourceTree = SOURCE_ROOT; };
 		1B0C592D1823C6A900BBAECF /* YCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YCViewController.h; path = ../Classes/YCViewController.h; sourceTree = "<group>"; };
 		1B0C592E1823C6A900BBAECF /* YCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YCViewController.m; path = ../Classes/YCViewController.m; sourceTree = "<group>"; };
 		1BCFD853182377C100DF0718 /* BlueBeacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueBeacon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +121,7 @@
 			children = (
 				1B0C592D1823C6A900BBAECF /* YCViewController.h */,
 				1B0C592E1823C6A900BBAECF /* YCViewController.m */,
+				1B02DD25183B4D88006B2D06 /* YCDefine.h */,
 				1BCFD865182377C100DF0718 /* YCAppDelegate.h */,
 				1BCFD866182377C100DF0718 /* YCAppDelegate.m */,
 				1BCFD868182377C200DF0718 /* Main_iPhone.storyboard */,
@@ -208,6 +210,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = yy;
 				TargetAttributes = {
+					1BCFD852182377C100DF0718 = {
+						DevelopmentTeam = 4XNXN38KSW;
+					};
 					1BCFD876182377C200DF0718 = {
 						TestTargetID = 1BCFD852182377C100DF0718;
 					};
@@ -423,10 +428,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlueBeacon/BlueBeacon-Prefix.pch";
 				INFOPLIST_FILE = "BlueBeacon/BlueBeacon-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -438,10 +446,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlueBeacon/BlueBeacon-Prefix.pch";
 				INFOPLIST_FILE = "BlueBeacon/BlueBeacon-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

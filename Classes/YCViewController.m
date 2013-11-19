@@ -8,6 +8,7 @@
 
 #import "YCViewController.h"
 #import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
+#import "YCDefine.h"
 
 @interface YCViewController ()
 
@@ -22,12 +23,24 @@
 {
     [super viewDidLoad];
 
+    _availableDevices = [NSMutableArray array];
     _bleService = [[BluetoothLEService alloc] init];
+    _bleService.connectOnDiscovery = NO;
+    
     [_bleService.availableDevicesSignal subscribeNext:^(NSArray *devices) {
         for (CBPeripheral *p in devices) {
-            NSLog(@"p %@", p);
+            if (![_availableDevices containsObject:p] && [p.name isEqualToString:kBeaconName]) {
+                [_availableDevices addObject:p];
+                [self.tableView reloadData];
+            }
         }
+        
+        [self.tableView reloadData];
     }];
+    
+    [_bleService scanForAvailableDevices];
+
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,23 +53,25 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return [_availableDevices count];;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"deviceCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
+                                                            forIndexPath:indexPath];
     
+    if (cell) {
+        CBPeripheral *p = _availableDevices[indexPath.row];
+        cell.textLabel.text = p.name;
+        cell.detailTextLabel.text = [p.identifier UUIDString];
+    }
     // Configure the cell...
     
     return cell;

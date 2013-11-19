@@ -1,5 +1,7 @@
 ## Synopsis
 
+**_NOTE:_** Apple's CoreBluetooth library, which this project uses, only supports Bluetooth LE 4.0+. We're hoping to get future updates that support other versions of Bluetooth.
+
 ReactiveCoreBluetooth is a library that wraps Apple's [CoreBluetooth](http://developer.apple.com/library/ios/#documentation/CoreBluetooth/Reference/CoreBluetooth_Framework/_index.html) framework by providing [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa) signals instead of delegates. This library is currently a work-in-progress that provides basic Bluetooth LE device management. There is a sample app included in this repo that shows how to make use of this wrapper.
 
 ## Code Example
@@ -106,6 +108,10 @@ Listen on the `bluetoothStateSignal`.
 The `cacheDurationForDevices` setting allows you to change how long to wait while trying to connect to a device. The default is 5 seconds.
 
 The `cachePollingInterval` setting allows you to change how frequently the cache is polled for expired devices. The default is 3 seconds.
+
+### Connect on Discovery
+
+The `connectOnDiscovery` setting allows you to specify whether you want to connect to the device before it is added to the available devices signal.  Some BLE devices need a connection to provide a name, while others might behave differently or cease advertising themselves once a connection is initiated.
 
 ## Contributors
 

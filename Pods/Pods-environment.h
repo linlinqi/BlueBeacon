@@ -16,7 +16,7 @@
 #define COCOAPODS_POD_AVAILABLE_JVFloatLabeledTextField
 #define COCOAPODS_VERSION_MAJOR_JVFloatLabeledTextField 0
 #define COCOAPODS_VERSION_MINOR_JVFloatLabeledTextField 0
-#define COCOAPODS_VERSION_PATCH_JVFloatLabeledTextField 3
+#define COCOAPODS_VERSION_PATCH_JVFloatLabeledTextField 4
 
 // ReactiveCocoa
 #define COCOAPODS_POD_AVAILABLE_ReactiveCocoa
@@ -40,7 +40,7 @@
 #define COCOAPODS_POD_AVAILABLE_ReactiveCoreBluetooth
 #define COCOAPODS_VERSION_MAJOR_ReactiveCoreBluetooth 0
 #define COCOAPODS_VERSION_MINOR_ReactiveCoreBluetooth 0
-#define COCOAPODS_VERSION_PATCH_ReactiveCoreBluetooth 2
+#define COCOAPODS_VERSION_PATCH_ReactiveCoreBluetooth 3
 
 // libextobjc/EXTConcreteProtocol
 #define COCOAPODS_POD_AVAILABLE_libextobjc_EXTConcreteProtocol

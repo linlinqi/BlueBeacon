@@ -82,50 +82,51 @@
         originX = self.frame.size.width - _floatingLabel.frame.size.width;
     }
     
-    _floatingLabel.frame = CGRectMake(originX, _floatingLabel.font.lineHeight,
+    _floatingLabel.frame = CGRectMake(originX, _floatingLabel.font.lineHeight+_floatingLabelYPadding.floatValue,
                                       _floatingLabel.frame.size.width, _floatingLabel.frame.size.height);
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds
 {
-	return UIEdgeInsetsInsetRect([super textRectForBounds:bounds], UIEdgeInsetsMake(_floatingLabel.font.lineHeight, 0.0f, 0.0f, 0.0f));
+    return UIEdgeInsetsInsetRect([super textRectForBounds:bounds], UIEdgeInsetsMake(_floatingLabel.font.lineHeight+_floatingLabelYPadding.floatValue, 0.0f, 0.0f, 0.0f));
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds
 {
-    return UIEdgeInsetsInsetRect([super editingRectForBounds:bounds], UIEdgeInsetsMake(_floatingLabel.font.lineHeight, 0.0f, 0.0f, 0.0f));
+    return UIEdgeInsetsInsetRect([super editingRectForBounds:bounds], UIEdgeInsetsMake(_floatingLabel.font.lineHeight+_floatingLabelYPadding.floatValue, 0.0f, 0.0f, 0.0f));
 }
 
 - (CGRect)clearButtonRectForBounds:(CGRect)bounds
 {
-	CGRect rect = [super clearButtonRectForBounds:bounds];
-	rect = CGRectMake(rect.origin.x, rect.origin.y + _floatingLabel.font.lineHeight / 2.0f, rect.size.width, rect.size.height);
-	return rect;
+    CGRect rect = [super clearButtonRectForBounds:bounds];
+    rect = CGRectMake(rect.origin.x, rect.origin.y + (_floatingLabel.font.lineHeight / 2.0) + (_floatingLabelYPadding.floatValue / 2.0f), rect.size.width, rect.size.height);
+    return rect;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
+    if (self.floatingLabelFont) {
+        _floatingLabel.font = self.floatingLabelFont;
+    }
+    
     if (self.isFirstResponder) {
         if (!self.text || 0 == [self.text length]) {
-            [self hideFloatingLabel];
+            [self hideFloatingLabel:YES];
         }
         else {
-            if (self.floatingLabelFont) {
-                _floatingLabel.font = self.floatingLabelFont;
-            }
             [self setLabelActiveColor];
-            [self showFloatingLabel];
+            [self showFloatingLabel:YES];
         }
     }
     else {
         _floatingLabel.textColor = self.floatingLabelTextColor;
         if (!self.text || 0 == [self.text length]) {
-            [self hideFloatingLabel];
+            [self hideFloatingLabel:NO];
         }
         else {
-            [self showFloatingLabel];
+            [self showFloatingLabel:NO];
         }
     }
 }
@@ -140,28 +141,53 @@
     }
 }
 
-- (void)showFloatingLabel
+- (void)showFloatingLabel:(BOOL)animated
 {
     [self setLabelOriginForTextAlignment];
     
-    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
+    void (^showBlock)() = ^{
         _floatingLabel.alpha = 1.0f;
-            
-        _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x, 2.0f,
-                                          _floatingLabel.frame.size.width, _floatingLabel.frame.size.height);
-    } completion:nil];
+        _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
+                                          2.0f,
+                                          _floatingLabel.frame.size.width,
+                                          _floatingLabel.frame.size.height);
+    };
+    
+    if (animated) {
+        [UIView animateWithDuration:0.3f
+                              delay:0.0f
+                            options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut
+                         animations:showBlock
+                         completion:nil];
+    }
+    else {
+        showBlock();
+    }
 }
 
-- (void)hideFloatingLabel
+- (void)hideFloatingLabel:(BOOL)animated
 {
     [self setLabelOriginForTextAlignment];
     
-    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseIn animations:^{
+    void (^hideBlock)() = ^{
         _floatingLabel.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x, _floatingLabel.font.lineHeight,
-                                          _floatingLabel.frame.size.width, _floatingLabel.frame.size.height);
-    }];
+        _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
+                                          _floatingLabel.font.lineHeight + _floatingLabelYPadding.floatValue,
+                                          _floatingLabel.frame.size.width,
+                                          _floatingLabel.frame.size.height);
+
+    };
+    
+    if (animated) {
+        [UIView animateWithDuration:0.3f
+                              delay:0.0f
+                            options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseIn
+                         animations:hideBlock
+                         completion:nil];
+    }
+    else {
+        hideBlock();
+    }
 }
 
 - (void)setLabelOriginForTextAlignment

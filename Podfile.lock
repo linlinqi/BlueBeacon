@@ -1,6 +1,6 @@
 PODS:
   - JRSwizzle (1.0)
-  - JVFloatLabeledTextField (0.0.3)
+  - JVFloatLabeledTextField (0.0.4)
   - libextobjc/EXTConcreteProtocol (0.3):
     - libextobjc/RuntimeExtensions
   - libextobjc/EXTKeyPathCoding (0.3):
@@ -18,7 +18,7 @@ PODS:
     - libextobjc/EXTScope (~> 0.3.0)
   - ReactiveCocoa/RACExtensions (1.9.7):
     - ReactiveCocoa/Core
-  - ReactiveCoreBluetooth (0.0.2):
+  - ReactiveCoreBluetooth (0.0.3):
     - ReactiveCocoa (~> 1.0)
 
 DEPENDENCIES:
@@ -27,9 +27,9 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   JRSwizzle: 6242ff38485d870fc2636899048ee1ab883ae587
-  JVFloatLabeledTextField: b1a2eb81a43dbe835e36ec7f4e7d9dbb721e5592
+  JVFloatLabeledTextField: 479be2062a52fcc1a5d6dafc039a5949810002b9
   libextobjc: 820a79dbbbc498611e04fffd07d2d52a5588e7ac
   ReactiveCocoa: 86033375e366207afad5a5067f2dd10a1f2d8f32
-  ReactiveCoreBluetooth: aafbf0494e0bcecd69036e446988274301b6316c
+  ReactiveCoreBluetooth: 5987a91e09dc6b69cc9cd5a857e536c9dbf66281
 
 COCOAPODS: 0.26.2
