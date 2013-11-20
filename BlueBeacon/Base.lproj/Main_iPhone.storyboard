@@ -39,13 +39,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Beacons" id="jsu-BV-EZX">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="mND-mI-Fk5">
-                            <connections>
-                                <action selector="refreshTapped:" destination="4iq-pl-91m" id="Kua-Jk-lkl"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Beacons" id="jsu-BV-EZX"/>
                     <connections>
                         <segue destination="yvS-ND-HJ9" kind="push" identifier="deviceSegue" id="1R6-tw-duJ"/>
                     </connections>
@@ -54,10 +48,10 @@
             </objects>
             <point key="canvasLocation" x="685" y="437"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Device View Controller - Device-->
         <scene sceneID="vHL-fZ-mx0">
             <objects>
-                <tableViewController id="yvS-ND-HJ9" sceneMemberID="viewController">
+                <tableViewController id="yvS-ND-HJ9" customClass="YCDeviceViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uZM-sm-SO3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,7 +71,7 @@
                             <outlet property="delegate" destination="yvS-ND-HJ9" id="B7T-em-0lr"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="AgI-0L-fqZ"/>
+                    <navigationItem key="navigationItem" title="Device" id="AgI-0L-fqZ"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rBp-6g-Su9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

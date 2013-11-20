@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B02DD28183B9F87006B2D06 /* YCDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B02DD27183B9F87006B2D06 /* YCDeviceViewController.m */; };
 		1B0C592F1823C6A900BBAECF /* YCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0C592E1823C6A900BBAECF /* YCViewController.m */; };
 		1BCFD857182377C100DF0718 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCFD856182377C100DF0718 /* Foundation.framework */; };
 		1BCFD859182377C100DF0718 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCFD858182377C100DF0718 /* CoreGraphics.framework */; };
@@ -36,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		1B02DD25183B4D88006B2D06 /* YCDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YCDefine.h; path = Classes/YCDefine.h; sourceTree = SOURCE_ROOT; };
+		1B02DD26183B9F87006B2D06 /* YCDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YCDeviceViewController.h; path = Classes/YCDeviceViewController.h; sourceTree = SOURCE_ROOT; };
+		1B02DD27183B9F87006B2D06 /* YCDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YCDeviceViewController.m; path = Classes/YCDeviceViewController.m; sourceTree = SOURCE_ROOT; };
 		1B0C592D1823C6A900BBAECF /* YCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YCViewController.h; path = ../Classes/YCViewController.h; sourceTree = "<group>"; };
 		1B0C592E1823C6A900BBAECF /* YCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YCViewController.m; path = ../Classes/YCViewController.m; sourceTree = "<group>"; };
 		1BCFD853182377C100DF0718 /* BlueBeacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueBeacon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +124,8 @@
 			children = (
 				1B0C592D1823C6A900BBAECF /* YCViewController.h */,
 				1B0C592E1823C6A900BBAECF /* YCViewController.m */,
+				1B02DD26183B9F87006B2D06 /* YCDeviceViewController.h */,
+				1B02DD27183B9F87006B2D06 /* YCDeviceViewController.m */,
 				1B02DD25183B4D88006B2D06 /* YCDefine.h */,
 				1BCFD865182377C100DF0718 /* YCAppDelegate.h */,
 				1BCFD866182377C100DF0718 /* YCAppDelegate.m */,
@@ -298,6 +303,7 @@
 			files = (
 				1B0C592F1823C6A900BBAECF /* YCViewController.m in Sources */,
 				1BCFD867182377C100DF0718 /* YCAppDelegate.m in Sources */,
+				1B02DD28183B9F87006B2D06 /* YCDeviceViewController.m in Sources */,
 				1BCFD863182377C100DF0718 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

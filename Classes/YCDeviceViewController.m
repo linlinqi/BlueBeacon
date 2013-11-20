@@ -1,50 +1,26 @@
 //
-//  YCViewController.m
+//  YCDeviceViewController.m
 //  BlueBeacon
 //
-//  Created by yy on 13-11-1.
+//  Created by yy on 13-11-19.
 //  Copyright (c) 2013年 yy. All rights reserved.
 //
 
-#import "YCViewController.h"
-#import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
-#import "YCDefine.h"
 #import "YCDeviceViewController.h"
+#import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
 
-@interface YCViewController ()
-
-@property (nonatomic, strong) BluetoothLEService *bleService;
-@property (nonatomic, strong) NSMutableArray *availableDevices;
+@interface YCDeviceViewController ()
 
 @end
 
-@implementation YCViewController
+@implementation YCDeviceViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    _availableDevices = [NSMutableArray array];
-    _bleService = [[BluetoothLEService alloc] init];
-    _bleService.connectOnDiscovery = NO;
-    
-    [_bleService.availableDevicesSignal subscribeNext:^(NSArray *devices) {
-        for (CBPeripheral *p in devices) {
-            if (![_availableDevices containsObject:p] && [p.name isEqualToString:kBeaconName]) {
-                [_availableDevices addObject:p];
-                [self.tableView reloadData];
-            }
-        }
-        
-        [self.tableView reloadData];
-    }];
-    
-    [_bleService.peripheralConnectedSignal subscribeNext:^(CBPeripheral* device) {
-        NSLog(@"Connected to %@", device.name);
-    }];
-    
-    [_bleService scanForAvailableDevices];
-
+ 
+//    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    _bleService.
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,33 +33,26 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+#warning Potentially incomplete method implementation.
+    // Return the number of sections.
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_availableDevices count];;
+#warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"deviceCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
-                                                            forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    if (cell) {
-        CBPeripheral *p = _availableDevices[indexPath.row];
-        cell.textLabel.text = p.name;
-        cell.detailTextLabel.text = [p.identifier UUIDString];
-    }
+    // Configure the cell...
     
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CBPeripheral *device = _availableDevices[indexPath.row];
-    [self performSegueWithIdentifier:@"deviceSegue" sender:device];
 }
 
 /*
@@ -125,20 +94,16 @@
 }
 */
 
+/*
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    YCDeviceViewController *ctrl = (YCDeviceViewController *)segue.destinationViewController;
-    ctrl.device = sender;
-    ctrl.bleService = _bleService;
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
 
-#pragma mark - IBAction
-
-
-#pragma mark - Custom
-
+ */
 
 @end
