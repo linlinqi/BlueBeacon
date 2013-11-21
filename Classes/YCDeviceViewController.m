@@ -20,7 +20,7 @@
     [super viewDidLoad];
  
 //    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    _bleService.
+//    _bleService
 }
 
 - (void)didReceiveMemoryWarning

@@ -23,7 +23,11 @@ PODS:
 
 DEPENDENCIES:
   - JVFloatLabeledTextField
-  - ReactiveCoreBluetooth
+  - ReactiveCoreBluetooth (from `https://github.com/volca/ReactiveCoreBluetooth.git`)
+
+EXTERNAL SOURCES:
+  ReactiveCoreBluetooth:
+    :git: https://github.com/volca/ReactiveCoreBluetooth.git
 
 SPEC CHECKSUMS:
   JRSwizzle: 6242ff38485d870fc2636899048ee1ab883ae587
@@ -32,4 +36,4 @@ SPEC CHECKSUMS:
   ReactiveCocoa: 86033375e366207afad5a5067f2dd10a1f2d8f32
   ReactiveCoreBluetooth: 5987a91e09dc6b69cc9cd5a857e536c9dbf66281
 
-COCOAPODS: 0.26.2
+COCOAPODS: 0.28.0
