@@ -24,19 +24,22 @@
 {
     [super viewDidLoad];
 
-    _availableDevices = [NSMutableArray array];
+    self.availableDevices = [NSMutableArray array];
     _bleService = [[BluetoothLEService alloc] init];
     _bleService.connectOnDiscovery = NO;
+    
+    [RACObserve(self, availableDevices) subscribeNext:^(NSArray *devices) {
+        NSLog(@"%@", devices);
+    }];
     
     [_bleService.availableDevicesSignal subscribeNext:^(NSArray *devices) {
         for (CBPeripheral *p in devices) {
             if (![_availableDevices containsObject:p] && [p.name isEqualToString:kBeaconName]) {
                 [_availableDevices addObject:p];
-                [self.tableView reloadData];
             }
         }
         
-        [self.tableView reloadData];
+    
     }];
     
     [_bleService.peripheralConnectedSignal subscribeNext:^(CBPeripheral* device) {
