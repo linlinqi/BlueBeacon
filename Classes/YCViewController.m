@@ -29,20 +29,25 @@
     _bleService.connectOnDiscovery = NO;
     
     [_bleService.availableDevicesSignal subscribeNext:^(NSArray *devices) {
-        [_availableDevices removeAllObjects];
         for (CBPeripheral *p in devices) {
             if (![_availableDevices containsObject:p] && [p.name isEqualToString:kBeaconName]) {
                 [_availableDevices addObject:p];
             }
         }
         [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
     }];
     
     [_bleService.peripheralConnectedSignal subscribeNext:^(CBPeripheral* device) {
         NSLog(@"Connected to %@", device.name);
     }];
     
-    [_bleService scanForAvailableDevices];
+    [self startScan];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self
+                            action:@selector(startScan)
+                  forControlEvents:UIControlEventValueChanged];
 
 }
 
@@ -139,5 +144,9 @@
 
 #pragma mark - Custom
 
+- (void)startScan {
+    [_availableDevices removeAllObjects];
+    [_bleService scanForAvailableDevices];
+}
 
 @end
