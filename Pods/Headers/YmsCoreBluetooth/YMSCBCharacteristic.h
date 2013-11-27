@@ -1,0 +1,1 @@
+../../YmsCoreBluetooth/YmsCoreBluetooth/YMSCBCharacteristic.h

@@ -1,25 +1,17 @@
 PODS:
   - JVFloatLabeledTextField (0.0.4)
-  - ReactiveCocoa (2.1.7):
-    - ReactiveCocoa/Core
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/Core (2.1.7):
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.1.7)
-  - ReactiveCoreBluetooth (0.0.3):
-    - ReactiveCocoa (~> 2.0)
+  - YmsCoreBluetooth (1.06)
 
 DEPENDENCIES:
   - JVFloatLabeledTextField
-  - ReactiveCoreBluetooth (from `https://github.com/volca/ReactiveCoreBluetooth.git`)
+  - YmsCoreBluetooth (from `https://github.com/volca/YmsCoreBluetooth.git`)
 
 EXTERNAL SOURCES:
-  ReactiveCoreBluetooth:
-    :git: https://github.com/volca/ReactiveCoreBluetooth.git
+  YmsCoreBluetooth:
+    :git: https://github.com/volca/YmsCoreBluetooth.git
 
 SPEC CHECKSUMS:
   JVFloatLabeledTextField: 479be2062a52fcc1a5d6dafc039a5949810002b9
-  ReactiveCocoa: 1117f7968c8667d2ca00b5aa47156fabcb56af75
-  ReactiveCoreBluetooth: 4319a4ef53d945a1cf228a6a0626f9c9f2cc66c1
+  YmsCoreBluetooth: 609b0cea82dc6addd7d06cf266bd7ed1cdec9b0e
 
 COCOAPODS: 0.28.0

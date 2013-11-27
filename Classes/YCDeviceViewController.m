@@ -20,7 +20,7 @@
     [super viewDidLoad];
  
 //    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    if (_device) {
+    if (_device && !(_device.state == CBPeripheralStateConnected)) {
         [_bleService connectDevice:_device];
     }
 
