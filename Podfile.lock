@@ -1,17 +1,10 @@
 PODS:
   - JVFloatLabeledTextField (0.0.4)
-  - YmsCoreBluetooth (1.06)
 
 DEPENDENCIES:
   - JVFloatLabeledTextField
-  - YmsCoreBluetooth (from `https://github.com/volca/YmsCoreBluetooth.git`)
-
-EXTERNAL SOURCES:
-  YmsCoreBluetooth:
-    :git: https://github.com/volca/YmsCoreBluetooth.git
 
 SPEC CHECKSUMS:
   JVFloatLabeledTextField: 479be2062a52fcc1a5d6dafc039a5949810002b9
-  YmsCoreBluetooth: 609b0cea82dc6addd7d06cf266bd7ed1cdec9b0e
 
 COCOAPODS: 0.28.0

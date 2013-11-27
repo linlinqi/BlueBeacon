@@ -12,9 +12,3 @@
 #define COCOAPODS_VERSION_MINOR_JVFloatLabeledTextField 0
 #define COCOAPODS_VERSION_PATCH_JVFloatLabeledTextField 4
 
-// YmsCoreBluetooth
-#define COCOAPODS_POD_AVAILABLE_YmsCoreBluetooth
-#define COCOAPODS_VERSION_MAJOR_YmsCoreBluetooth 1
-#define COCOAPODS_VERSION_MINOR_YmsCoreBluetooth 6
-#define COCOAPODS_VERSION_PATCH_YmsCoreBluetooth 0
-
