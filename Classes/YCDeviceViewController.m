@@ -7,7 +7,7 @@
 //
 
 #import "YCDeviceViewController.h"
-#import <YmsCoreBluetooth/YmsCoreBluetooth.h>
+#import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
 
 @interface YCDeviceViewController ()
 
@@ -21,7 +21,7 @@
  
 //    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     if (_device && !(_device.state == CBPeripheralStateConnected)) {
-        [_bleService connectDevice:_device];
+//        [_bleService connectDevice:_device];
     }
 
 }

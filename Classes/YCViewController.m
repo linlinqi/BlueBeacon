@@ -7,7 +7,7 @@
 //
 
 #import "YCViewController.h"
-#import <YMSCoreBluetooth/YMSCoreBluetooth.h>
+#import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
 #import "YCDefine.h"
 #import "YCDeviceViewController.h"
 
