@@ -6,7 +6,7 @@ PODS:
   - ReactiveCocoa/Core (2.1.7):
     - ReactiveCocoa/no-arc
   - ReactiveCocoa/no-arc (2.1.7)
-  - ReactiveCoreBluetooth (0.0.3):
+  - ReactiveCoreBluetooth (0.0.4):
     - ReactiveCocoa
 
 DEPENDENCIES:
@@ -20,6 +20,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   JVFloatLabeledTextField: 479be2062a52fcc1a5d6dafc039a5949810002b9
   ReactiveCocoa: 1117f7968c8667d2ca00b5aa47156fabcb56af75
-  ReactiveCoreBluetooth: 96cfa100349e22fa25a0f638e7a20712da325032
+  ReactiveCoreBluetooth: c321c8418f5c410737117bd38d87fe6b4822ef5f
 
 COCOAPODS: 0.28.0

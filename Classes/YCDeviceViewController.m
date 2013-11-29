@@ -7,7 +7,6 @@
 //
 
 #import "YCDeviceViewController.h"
-#import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
 
 @interface YCDeviceViewController ()
 
@@ -21,8 +20,12 @@
  
 //    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     if (_device && !(_device.state == CBPeripheralStateConnected)) {
-//        [_bleService connectDevice:_device];
+
     }
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
 
 }
 
@@ -76,7 +79,7 @@
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        // Create a new instance of the appropriate class, insert it into the array, and add a n    ew row to the table view
     }   
 }
 */
@@ -108,5 +111,15 @@
 }
 
  */
+
+#pragma mark - CBPeripheral delegate
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
+    if (error) {
+        return;
+    }
+    
+    NSLog(@"services %@", peripheral.services);
+}
 
 @end

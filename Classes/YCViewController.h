@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class YCDeviceViewController;
+
 @interface YCViewController : UITableViewController
+
+@property (nonatomic, strong) YCDeviceViewController *deviceController;
 
 @end

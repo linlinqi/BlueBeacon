@@ -34,5 +34,5 @@
 #define COCOAPODS_POD_AVAILABLE_ReactiveCoreBluetooth
 #define COCOAPODS_VERSION_MAJOR_ReactiveCoreBluetooth 0
 #define COCOAPODS_VERSION_MINOR_ReactiveCoreBluetooth 0
-#define COCOAPODS_VERSION_PATCH_ReactiveCoreBluetooth 3
+#define COCOAPODS_VERSION_PATCH_ReactiveCoreBluetooth 4
 

@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
-@class BluetoothLEService;
 @class CBPeripheral;
 
-@interface YCDeviceViewController : UITableViewController
+@interface YCDeviceViewController : UITableViewController <CBPeripheralDelegate>
 
 @property (nonatomic, weak) CBPeripheral *device;
-@property (nonatomic, weak) BluetoothLEService *bleService;
 
 @end

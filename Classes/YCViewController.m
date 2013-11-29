@@ -40,6 +40,10 @@
     
     [_bleService.peripheralConnectedSignal subscribeNext:^(CBPeripheral* device) {
         NSLog(@"Connected to %@", device.name);
+        if (_deviceController != nil) {
+            device.delegate = _deviceController;
+        }
+        [device discoverServices:nil];
     }];
     
     [self startScan];
@@ -134,9 +138,9 @@
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    YCDeviceViewController *ctrl = (YCDeviceViewController *)segue.destinationViewController;
-    ctrl.device = sender;
-    ctrl.bleService = _bleService;
+    _deviceController = (YCDeviceViewController *)segue.destinationViewController;
+    _deviceController.device = sender;
+    [_bleService connectDevice:sender];
 }
 
 #pragma mark - IBAction
