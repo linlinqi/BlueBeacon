@@ -7,6 +7,7 @@
 //
 
 #import "YCDeviceViewController.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface YCDeviceViewController ()
 
@@ -19,9 +20,6 @@
     [super viewDidLoad];
  
 //    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    if (_device && !(_device.state == CBPeripheralStateConnected)) {
-
-    }
 
 }
 

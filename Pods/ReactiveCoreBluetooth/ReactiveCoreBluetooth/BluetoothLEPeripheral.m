@@ -1,5 +1,6 @@
 
 #import "BluetoothLEPeripheral.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface BluetoothLEPeripheral()
 
@@ -11,12 +12,48 @@
     self = [super init];
     if (self) {
         _device = peripheral;
+        [self setupSignals];
     }
     return self;
 }
 
 - (CBPeripheralState)state {
     return _device.state;
+}
+
+- (void)setupSignals {
+    _discoveredServicesSignal           = [RACSubject subject];
+    _discoveredCharacteristicsSignal    = [RACSubject subject];
+    _wroteValueSignal                   = [RACSubject subject];
+}
+
+#pragma mark - CBperipheral delegate
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
+    if (error) {
+        [_discoveredServicesSignal sendError:error];
+    } else {
+        [_discoveredServicesSignal sendNext:peripheral];
+    }
+
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+    if (error) {
+        [_discoveredCharacteristicsSignal sendError:error];
+    } else {
+        [_discoveredCharacteristicsSignal sendNext:service];
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+
+    if (error) {
+        [_wroteValueSignal sendError:error];
+    } else {
+        [_wroteValueSignal sendNext:characteristic];
+    }
+
 }
 
 @end
