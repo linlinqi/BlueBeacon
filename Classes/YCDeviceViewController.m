@@ -12,6 +12,8 @@
 
 @interface YCDeviceViewController ()
 
+@property (nonatomic, strong) CBService *beaconService;
+
 @end
 
 @implementation YCDeviceViewController
@@ -20,16 +22,30 @@
 {
     [super viewDidLoad];
  
-//    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [_device.discoveredServicesSignal subscribeNext:^(CBPeripheral *p) {
-        CBUUID *serviceUUID = [CBUUID UUIDWithString:kBeaconServiceUUID];
-        for (CBService *s in p.services) {
-            if ([serviceUUID isEqual:s.UUID]) {
-                NSLog(@"sss %@ uuid %@", s, s.UUID);
-                break;
-            }
-        }
-    }];
+    [[_device.discoveredServicesSignal
+      filter:^(CBPeripheral *p) {
+          CBUUID *serviceUUID = [CBUUID UUIDWithString:kBeaconServiceUUID];
+          for (CBService *s in p.services) {
+              if ([serviceUUID isEqual:s.UUID]) {
+                  _beaconService = s;
+                  return YES;
+              }
+          }
+          return NO;
+      }]
+     subscribeNext:^(CBPeripheral *p) {
+         [p discoverCharacteristics:nil forService:_beaconService];
+     }];
+    
+    [_device.discoveredCharacteristicsSignal
+     filter:^BOOL(CBService *service) {
+         NSLog(@"service %@", service);
+         for (CBCharacteristic *i in service.characteristics) {
+             NSLog(@"i %@", i);
+         }
+
+         return YES;
+     }];
 
 }
 
