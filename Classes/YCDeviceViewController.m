@@ -113,14 +113,4 @@
 
  */
 
-#pragma mark - CBPeripheral delegate
-
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
-    if (error) {
-        return;
-    }
-    
-    NSLog(@"services %@", peripheral.services);
-}
-
 @end

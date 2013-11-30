@@ -8,13 +8,11 @@
 
 @implementation BluetoothLEPeripheral
 
-@synthesize device;
-
 - (id)initWithPeripheral:(CBPeripheral *)peripheral {
     self = [super init];
     if (self) {
         peripheral.delegate = self;
-        self.device = peripheral;
+        _device = peripheral;
         [self setupSignals];
     }
     return self;

@@ -40,9 +40,6 @@
     
     [_bleService.peripheralConnectedSignal subscribeNext:^(CBPeripheral* device) {
         NSLog(@"Connected to %@", device.name);
-        if (_deviceController != nil) {
-            device.delegate = _deviceController;
-        }
         [device discoverServices:nil];
     }];
     
