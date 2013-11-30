@@ -10,9 +10,11 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 @class RACSubject;
+@class RACSignal;
 
 @interface BluetoothLEPeripheral : NSObject <CBPeripheralDelegate>
 
+@property (nonatomic) RACSignal* connectedSignal;
 @property (nonatomic) RACSubject* discoveredServicesSignal;
 @property (nonatomic) RACSubject* discoveredCharacteristicsSignal;
 @property (nonatomic) RACSubject* wroteValueSignal;

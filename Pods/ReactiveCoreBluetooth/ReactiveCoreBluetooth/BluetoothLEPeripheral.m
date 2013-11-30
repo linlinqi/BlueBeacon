@@ -8,20 +8,25 @@
 
 @implementation BluetoothLEPeripheral
 
+@synthesize device;
+
 - (id)initWithPeripheral:(CBPeripheral *)peripheral {
     self = [super init];
     if (self) {
-        _device = peripheral;
+        self.device = peripheral;
         [self setupSignals];
     }
     return self;
 }
 
 - (CBPeripheralState)state {
-    return _device.state;
+    return self.device.state;
 }
 
 - (void)setupSignals {
+    _connectedSignal = [RACObserve(self, device.state) filter:^(NSNumber *state) {
+        return (BOOL)([state intValue] == CBPeripheralStateConnected);
+    }];
     _discoveredServicesSignal           = [RACSubject subject];
     _discoveredCharacteristicsSignal    = [RACSubject subject];
     _wroteValueSignal                   = [RACSubject subject];
