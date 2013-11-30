@@ -8,6 +8,7 @@
 
 #import "YCDeviceViewController.h"
 #import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
+#import "YCDefine.h"
 
 @interface YCDeviceViewController ()
 
@@ -20,8 +21,14 @@
     [super viewDidLoad];
  
 //    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [_device.discoveredServicesSignal subscribeNext:^(id x) {
-        NSLog(@"x %@", x);
+    [_device.discoveredServicesSignal subscribeNext:^(CBPeripheral *p) {
+        CBUUID *serviceUUID = [CBUUID UUIDWithString:kBeaconServiceUUID];
+        for (CBService *s in p.services) {
+            if ([serviceUUID isEqual:s.UUID]) {
+                NSLog(@"sss %@ uuid %@", s, s.UUID);
+                break;
+            }
+        }
     }];
 
 }
