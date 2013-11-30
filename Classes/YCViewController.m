@@ -139,7 +139,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     _deviceController = (YCDeviceViewController *)segue.destinationViewController;
-    _deviceController.device = sender;
+    BluetoothLEPeripheral *device = [[BluetoothLEPeripheral alloc] initWithPeripheral:sender];
+    _deviceController.device = device;
     [_bleService connectDevice:sender];
 }
 

@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-@class CBPeripheral;
+@class BluetoothLEPeripheral;
 
 @interface YCDeviceViewController : UITableViewController <CBPeripheralDelegate>
 
-@property (nonatomic, weak) CBPeripheral *device;
+@property (nonatomic, strong) BluetoothLEPeripheral *device;
 
 @end

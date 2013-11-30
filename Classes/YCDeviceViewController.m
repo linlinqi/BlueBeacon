@@ -7,7 +7,7 @@
 //
 
 #import "YCDeviceViewController.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
 
 @interface YCDeviceViewController ()
 
@@ -20,6 +20,9 @@
     [super viewDidLoad];
  
 //    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [_device.discoveredServicesSignal subscribeNext:^(id x) {
+        NSLog(@"x %@", x);
+    }];
 
 }
 

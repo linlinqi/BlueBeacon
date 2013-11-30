@@ -13,6 +13,7 @@
 - (id)initWithPeripheral:(CBPeripheral *)peripheral {
     self = [super init];
     if (self) {
+        peripheral.delegate = self;
         self.device = peripheral;
         [self setupSignals];
     }
@@ -24,9 +25,6 @@
 }
 
 - (void)setupSignals {
-    _connectedSignal = [RACObserve(self, device.state) filter:^(NSNumber *state) {
-        return (BOOL)([state intValue] == CBPeripheralStateConnected);
-    }];
     _discoveredServicesSignal           = [RACSubject subject];
     _discoveredCharacteristicsSignal    = [RACSubject subject];
     _wroteValueSignal                   = [RACSubject subject];
