@@ -37,7 +37,7 @@
          [p discoverCharacteristics:nil forService:_beaconService];
      }];
     
-    [_device.discoveredCharacteristicsSignal
+    [[_device.discoveredCharacteristicsSignal
      filter:^BOOL(CBService *service) {
          NSLog(@"service %@", service);
          for (CBCharacteristic *i in service.characteristics) {
@@ -45,7 +45,10 @@
          }
 
          return YES;
-     }];
+     }]
+    subscribeNext:^(id x) {
+        NSLog(@"safadfa %@", x);
+    }];
 
 }
 
