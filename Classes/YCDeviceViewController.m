@@ -34,14 +34,19 @@
           return NO;
       }]
      subscribeNext:^(CBPeripheral *p) {
-         [p discoverCharacteristics:nil forService:_beaconService];
+         NSArray *chars = @[[CBUUID UUIDWithString:kBeaconProximityUUID],
+                            [CBUUID UUIDWithString:kBeaconMajorUUID],
+                            [CBUUID UUIDWithString:kBeaconMinorUUID],
+                            [CBUUID UUIDWithString:kBeaconMeasuredPowerUUID],
+                            [CBUUID UUIDWithString:kBeaconProximityUUID]];
+         [p discoverCharacteristics:chars forService:_beaconService];
      }];
     
     [[_device.discoveredCharacteristicsSignal
      filter:^BOOL(CBService *service) {
          NSLog(@"service %@", service);
          for (CBCharacteristic *i in service.characteristics) {
-             NSLog(@"i %@", i);
+//             NSLog(@"i %@", i);
          }
 
          return YES;
