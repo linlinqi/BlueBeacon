@@ -13,6 +13,12 @@
 @interface YCDeviceViewController ()
 
 @property (nonatomic, strong) CBService *beaconService;
+@property (nonatomic, strong) CBCharacteristic *proximityChar;
+@property (nonatomic, strong) CBCharacteristic *majorChar;
+@property (nonatomic, strong) CBCharacteristic *minorChar;
+@property (nonatomic, strong) CBCharacteristic *measuredPowerChar;
+@property (nonatomic, strong) CBCharacteristic *txPowerChar;
+@property (nonatomic, strong) CBCharacteristic *passcodeChar;
 
 @end
 
@@ -34,25 +40,39 @@
           return NO;
       }]
      subscribeNext:^(CBPeripheral *p) {
-         NSArray *chars = @[[CBUUID UUIDWithString:kBeaconProximityUUID],
-                            [CBUUID UUIDWithString:kBeaconMajorUUID],
-                            [CBUUID UUIDWithString:kBeaconMinorUUID],
-                            [CBUUID UUIDWithString:kBeaconMeasuredPowerUUID],
-                            [CBUUID UUIDWithString:kBeaconProximityUUID]];
+//         NSArray *chars = @[[CBUUID UUIDWithString:kBeaconProximityUUID],
+//                            [CBUUID UUIDWithString:kBeaconMajorUUID],
+//                            [CBUUID UUIDWithString:kBeaconMinorUUID],
+//                            [CBUUID UUIDWithString:kBeaconMeasuredPowerUUID],
+//                            [CBUUID UUIDWithString:kBeaconPasscodeUUID]];
+         NSArray *chars = nil;
          [p discoverCharacteristics:chars forService:_beaconService];
+         NSLog(@"Discovering chars");
      }];
     
-    [[_device.discoveredCharacteristicsSignal
-     filter:^BOOL(CBService *service) {
-         NSLog(@"service %@", service);
-         for (CBCharacteristic *i in service.characteristics) {
-//             NSLog(@"i %@", i);
-         }
-
-         return YES;
-     }]
-    subscribeNext:^(id x) {
-        NSLog(@"safadfa %@", x);
+    CBUUID *proximityUUID = [CBUUID UUIDWithString:kBeaconProximityUUID];
+    CBUUID *majorUUID = [CBUUID UUIDWithString:kBeaconMajorUUID];
+    CBUUID *minorUUID = [CBUUID UUIDWithString:kBeaconMinorUUID];
+    CBUUID *measuredPowerUUID = [CBUUID UUIDWithString:kBeaconMeasuredPowerUUID];
+    CBUUID *txPowerUUID = [CBUUID UUIDWithString:kBeaconTxPowerUUID];
+    CBUUID *passcodeUUID = [CBUUID UUIDWithString:kBeaconPasscodeUUID];
+    
+    [_device.discoveredCharacteristicsSignal subscribeNext:^(CBService *service) {
+        for (CBCharacteristic *i in service.characteristics) {
+            if ([i.UUID isEqual:proximityUUID]) {
+                _proximityChar = i;
+            } else if ([i.UUID isEqual:majorUUID]) {
+                _majorChar = i;
+            } else if ([i.UUID isEqual:minorUUID]) {
+                _minorChar = i;
+            } else if ([i.UUID isEqual:measuredPowerUUID]) {
+                _measuredPowerChar = i;
+            } else if ([i.UUID isEqual:txPowerUUID]) {
+                _txPowerChar = i;
+            } else if ([i.UUID isEqual:passcodeUUID]) {
+                _passcodeChar = i;
+            }
+        }
     }];
 
 }

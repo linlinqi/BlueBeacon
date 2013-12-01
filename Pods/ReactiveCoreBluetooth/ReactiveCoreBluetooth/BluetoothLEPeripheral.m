@@ -37,10 +37,6 @@
     } else {
         [_discoveredServicesSignal sendNext:peripheral];
     }
-
-    for (CBService *s in peripheral.services) {
-        [peripheral discoverCharacteristics:nil forService:s];
-    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
