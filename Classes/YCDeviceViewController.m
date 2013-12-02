@@ -124,9 +124,7 @@ typedef enum {
             unsigned char data[1];
             [i.value getBytes:data length:1];
             _deviceTxPower = data[0];
-            
-            NSString *power = _txPowerIndex[_deviceTxPower];
-            _txPowerLabel.text = [NSString stringWithFormat:@"Tx Power: %@", power];
+            _txPowerLabel.text = [self getTxPowerWithIndex:_deviceTxPower];
         } else if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconPasscodeUUID]]) {
             _passcodeChar = i;
         }
@@ -167,6 +165,7 @@ typedef enum {
     }
     
     _deviceTxPower = buttonIndex - 1;
+    _txPowerLabel.text = [self getTxPowerWithIndex:_deviceTxPower];
 }
 
 #pragma mark - Custom
@@ -203,10 +202,106 @@ typedef enum {
     return result;
 }
 
+- (NSString *)getTxPowerWithIndex:(NSInteger)index {
+    NSString *power = _txPowerIndex[index];
+    return [NSString stringWithFormat:@"Tx Power: %@", power];
+}
+
 #pragma mark - IBAction
 
 - (IBAction)saveTapped:(id)sender {
+    [self.tableView endEditing:YES];
 
+    CBUUID *uuid;
+    @try {
+        uuid = [CBUUID UUIDWithString:[self.serviceText text]];
+        [self.serviceText setText:[self convertCBUUIDToString:uuid]];
+        
+    }
+    @catch (NSException *exception) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"UUID string not valid!"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    
+    int major = [[self.majorText text] intValue];
+    if ((major < 0) || (major > 65535)) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"Major number not valid!"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    [self.majorText setText:[NSString stringWithFormat:@"%d", major]];
+    
+    int minor = [[self.minorText text] intValue];
+    if ((minor < 0) || (minor > 65535)) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"Minor number not valid!"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    [self.minorText setText:[NSString stringWithFormat:@"%d", minor]];
+    
+    int power = [[self.powerText text] intValue];
+    if ((power > -1) || (power < -256))
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"Power not valid!"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    [self.powerText setText:[NSString stringWithFormat:@"%d", power]];
+    
+    NSData *data = uuid.data;
+    NSLog(@"uuid %@ char %@", uuid, _proximityChar);
+    CBPeripheral *p = _device.device;
+    [p writeValue:data
+forCharacteristic:_proximityChar
+             type:CBCharacteristicWriteWithResponse];
+    
+    uint8_t buf[] = {0x00 , 0x00};
+    buf[1] =  (unsigned int) (major & 0xff);
+    buf[0] =  (unsigned int) (major>>8 & 0xff);
+    data = [[NSData alloc] initWithBytes:buf length:2];
+    [p writeValue:data
+forCharacteristic:_majorChar
+             type:CBCharacteristicWriteWithResponse];
+    
+    
+    buf[1] =  (unsigned int) (minor & 0xff);
+    buf[0] =  (unsigned int) (minor>>8 & 0xff);
+    data = [[NSData alloc] initWithBytes:buf length:2];
+    [p writeValue:data
+forCharacteristic:_minorChar
+             type:CBCharacteristicWriteWithResponse];
+    
+    power = power + 256;
+    buf[0] = power;
+    data = [[NSData alloc] initWithBytes:buf length:1];
+    [p writeValue:data
+forCharacteristic:_measuredPowerChar
+             type:CBCharacteristicWriteWithResponse];
+    
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"Update successful, please restart BlueBeacon!"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
 @end
