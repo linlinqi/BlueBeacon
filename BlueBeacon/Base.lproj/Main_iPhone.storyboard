@@ -67,7 +67,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Proximity UUID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XF8-dk-N7M" customClass="JVFloatLabeledTextField">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Proximity UUID" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XF8-dk-N7M" customClass="JVFloatLabeledTextField">
                                                     <rect key="frame" x="20" y="2" width="287" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -142,7 +142,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passcode" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZEf-M6-CV7" customClass="JVFloatLabeledTextField">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Passcode (optional)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZEf-M6-CV7" customClass="JVFloatLabeledTextField">
                                                     <rect key="frame" x="20" y="2" width="287" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -162,6 +162,14 @@
                     <navigationItem key="navigationItem" title="Device" id="AgI-0L-fqZ">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="yQd-Ff-Qpf"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="majorText" destination="5zX-kU-iL4" id="crw-R9-ZP9"/>
+                        <outlet property="minorText" destination="9ch-Jc-t8Z" id="KfD-8j-r6o"/>
+                        <outlet property="passcodeText" destination="ZEf-M6-CV7" id="ct2-cr-XPH"/>
+                        <outlet property="powerText" destination="WdH-Z0-ntF" id="ISd-zH-fPD"/>
+                        <outlet property="serviceText" destination="XF8-dk-N7M" id="Khe-17-hVA"/>
+                        <outlet property="txPowerLabel" destination="q2S-d3-3Ed" id="Mk1-uj-vgc"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1229" y="437"/>

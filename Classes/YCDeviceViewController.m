@@ -11,6 +11,15 @@
 #import "YCDefine.h"
 #import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
 
+typedef enum {
+    BBTxPower0DBM = 0,
+    BBTxPower4DBM = 1,
+    BBTxPowerMinus6DBM = 2,
+    BBTxPowerMinus23DBM = 3
+} BBTxPower;
+
+#define kTxPowerCellIndex 0
+
 @interface YCDeviceViewController ()
 
 @property (nonatomic, strong) CBService *beaconService;
@@ -21,6 +30,13 @@
 @property (nonatomic, strong) CBCharacteristic *txPowerChar;
 @property (nonatomic, strong) CBCharacteristic *passcodeChar;
 
+@property (nonatomic, strong) NSArray *txPowerIndex;
+
+@property (nonatomic, copy) NSString *deviceService;
+@property (nonatomic) UInt16 deviceMajor;
+@property (nonatomic) UInt16 deviceMinor;
+@property (nonatomic) UInt8 devicePower;
+
 @end
 
 @implementation YCDeviceViewController
@@ -29,6 +45,8 @@
 {
     [super viewDidLoad];
  
+    _txPowerIndex = @[@"0dBm", @"4dBm", @"-6dBm", @"-23dBm"];
+    
     [[_device.discoveredServicesSignal
       filter:^(CBPeripheral *p) {
           CBUUID *serviceUUID = [CBUUID UUIDWithString:kBeaconServiceUUID];
@@ -41,38 +59,75 @@
           return NO;
       }]
      subscribeNext:^(CBPeripheral *p) {
-//         NSArray *chars = @[[CBUUID UUIDWithString:kBeaconProximityUUID],
-//                            [CBUUID UUIDWithString:kBeaconMajorUUID],
-//                            [CBUUID UUIDWithString:kBeaconMinorUUID],
-//                            [CBUUID UUIDWithString:kBeaconMeasuredPowerUUID],
-//                            [CBUUID UUIDWithString:kBeaconPasscodeUUID]];
          NSArray *chars = nil;
          [p discoverCharacteristics:chars forService:_beaconService];
          NSLog(@"Discovering chars");
      }];
     
-    CBUUID *proximityUUID = [CBUUID UUIDWithString:kBeaconProximityUUID];
-    CBUUID *majorUUID = [CBUUID UUIDWithString:kBeaconMajorUUID];
-    CBUUID *minorUUID = [CBUUID UUIDWithString:kBeaconMinorUUID];
-    CBUUID *measuredPowerUUID = [CBUUID UUIDWithString:kBeaconMeasuredPowerUUID];
-    CBUUID *txPowerUUID = [CBUUID UUIDWithString:kBeaconTxPowerUUID];
-    CBUUID *passcodeUUID = [CBUUID UUIDWithString:kBeaconPasscodeUUID];
-    
     [_device.discoveredCharacteristicsSignal subscribeNext:^(CBService *service) {
         for (CBCharacteristic *i in service.characteristics) {
-            if ([i.UUID isEqual:proximityUUID]) {
-                _proximityChar = i;
-            } else if ([i.UUID isEqual:majorUUID]) {
-                _majorChar = i;
-            } else if ([i.UUID isEqual:minorUUID]) {
-                _minorChar = i;
-            } else if ([i.UUID isEqual:measuredPowerUUID]) {
-                _measuredPowerChar = i;
-            } else if ([i.UUID isEqual:txPowerUUID]) {
-                _txPowerChar = i;
-            } else if ([i.UUID isEqual:passcodeUUID]) {
-                _passcodeChar = i;
-            }
+            [_device.device readValueForCharacteristic:i];
+        }
+    }];
+    
+    [_device.updatedValueSignal subscribeNext:^(CBCharacteristic *i) {
+        if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconProximityUUID]]) {
+            _proximityChar = i;
+            NSString *temp = [self getHexString:i.value];
+            
+            NSRange r1 = NSMakeRange(8, 4);
+            NSRange r2 = NSMakeRange(12, 4);
+            NSRange r3 = NSMakeRange(16, 4);
+            
+            _deviceService = [temp substringToIndex:8];
+            _deviceService = [_deviceService stringByAppendingString:@"-"];
+            _deviceService = [_deviceService stringByAppendingString:[temp substringWithRange:r1]];
+            _deviceService = [_deviceService stringByAppendingString:@"-"];
+            _deviceService = [_deviceService stringByAppendingString:[temp substringWithRange:r2]];
+            _deviceService = [_deviceService stringByAppendingString:@"-"];
+            _deviceService = [_deviceService stringByAppendingString:[temp substringWithRange:r3]];
+            _deviceService = [_deviceService stringByAppendingString:@"-"];
+            _deviceService = [_deviceService stringByAppendingString:[temp substringFromIndex:20]];
+            _deviceService = [_deviceService uppercaseString];
+            
+            [self.serviceText setText:_deviceService];
+            
+        } else if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconMajorUUID]]) {
+            _majorChar = i;
+            
+            unsigned char data[2];
+            [i.value getBytes:data length:2];
+            _deviceMajor = data[0] << 8 | data[1];
+            
+            [self.majorText setText:[NSString stringWithFormat:@"%d", _deviceMajor]];
+        } else if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconMinorUUID]]) {
+            _minorChar = i;
+            
+            unsigned char data[2];
+            [i.value getBytes:data length:2];
+            _deviceMinor = data[0] << 8 | data[1];
+            
+            [self.minorText setText:[NSString stringWithFormat:@"%d", _deviceMajor]];
+        } else if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconMeasuredPowerUUID]]) {
+            _measuredPowerChar = i;
+            
+            unsigned char data[1];
+            [i.value getBytes:data length:1];
+            
+            _devicePower = data[0];
+            
+            [self.powerText setText:[NSString stringWithFormat:@"%d", _devicePower - 256]];
+        } else if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconTxPowerUUID]]) {
+            _txPowerChar = i;
+            
+            unsigned char data[1];
+            [i.value getBytes:data length:1];
+            UInt8 idx = data[0];
+            
+            NSString *power = _txPowerIndex[idx];
+            _txPowerLabel.text = [NSString stringWithFormat:@"Tx Power: %@", power];
+        } else if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconPasscodeUUID]]) {
+            _passcodeChar = i;
         }
     }];
 
@@ -91,7 +146,60 @@
 #pragma mark - tableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == kTxPowerCellIndex) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self.tableView endEditing:YES];
+        
+        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Tx Power"
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Cancel"
+                                              destructiveButtonTitle:nil
+                                                   otherButtonTitles:nil, nil];
+        for (NSString *i in _txPowerIndex) {
+            [action addButtonWithTitle:i];
+        }
+        [action showInView:self.tableView];
+    }
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+}
+
+#pragma mark - Custom
+
+- (NSString*)getHexString:(NSData*)data {
+    NSUInteger dataLength = [data length];
+    NSMutableString *string = [NSMutableString stringWithCapacity:dataLength * 2];
+    const unsigned char *dataBytes = [data bytes];
+    for (NSInteger idx = 0; idx < dataLength; ++idx) {
+        [string appendFormat:@"%02x", dataBytes[idx]];
+    }
+    return string;
+}
+
+- (NSString *)convertCBUUIDToString:(CBUUID*)uuid {
+    NSData *data = uuid.data;
+    NSUInteger bytesToConvert = [data length];
+    const unsigned char *uuidBytes = [data bytes];
+    NSMutableString *outputString = [NSMutableString stringWithCapacity:16];
+    
+    for (NSUInteger currentByteIndex = 0; currentByteIndex < bytesToConvert; currentByteIndex++) {
+        switch (currentByteIndex) {
+            case 3:
+            case 5:
+            case 7:
+            case 9: [outputString appendFormat:@"%02x-", uuidBytes[currentByteIndex]]; break;
+            default: [outputString appendFormat:@"%02x", uuidBytes[currentByteIndex]];
+        }
+        
+    }
+    
+    NSString *result = [outputString uppercaseString];
+    
+    return result;
 }
 
 @end

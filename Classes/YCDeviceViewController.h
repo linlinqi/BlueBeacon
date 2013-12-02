@@ -9,9 +9,18 @@
 #import <UIKit/UIKit.h>
 
 @class BluetoothLEPeripheral;
+@class JVFloatLabeledTextField;
 
-@interface YCDeviceViewController : UITableViewController
+@interface YCDeviceViewController : UITableViewController <UIActionSheetDelegate>
 
 @property (nonatomic, strong) BluetoothLEPeripheral *device;
+
+@property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *serviceText;
+@property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *majorText;
+@property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *minorText;
+@property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *powerText;
+@property (strong, nonatomic) IBOutlet UILabel *txPowerLabel;
+@property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *passcodeText;
+
 
 @end

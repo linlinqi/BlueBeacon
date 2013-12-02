@@ -48,17 +48,14 @@
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-
     if (error) {
         [_wroteValueSignal sendError:error];
     } else {
         [_wroteValueSignal sendNext:characteristic];
     }
-
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    
     if (error) {
         [_updatedValueSignal sendError:error];
     } else {
