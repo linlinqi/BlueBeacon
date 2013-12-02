@@ -1,3 +1,10 @@
+//
+//  YCDeviceViewController.h
+//  BlueBeacon
+//
+//  Created by Linlinqi on 13-11-19.
+//  Copyright (c) 2013年 Linlinqi Studio. All rights reserved.
+//
 
 #import "BluetoothLEPeripheral.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>

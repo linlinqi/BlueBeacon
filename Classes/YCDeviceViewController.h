@@ -2,8 +2,8 @@
 //  YCDeviceViewController.h
 //  BlueBeacon
 //
-//  Created by yy on 13-11-19.
-//  Copyright (c) 2013年 yy. All rights reserved.
+//  Created by Linlinqi on 13-11-19.
+//  Copyright (c) 2013年 Linlinqi Studio. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
