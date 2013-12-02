@@ -110,6 +110,7 @@
 
 - (void)startScan {
     [_availableDevices removeAllObjects];
+    [self.tableView reloadData];
     [_bleService scanForAvailableDevices];
 }
 

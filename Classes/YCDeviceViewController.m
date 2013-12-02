@@ -70,6 +70,10 @@ typedef enum {
     
     [_device.discoveredCharacteristicsSignal subscribeNext:^(CBService *service) {
         for (CBCharacteristic *i in service.characteristics) {
+            if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconPasscodeUUID]]) {
+                _passcodeChar = i;
+                continue;
+            }
             [_device.device readValueForCharacteristic:i];
         }
     }];
@@ -129,8 +133,6 @@ typedef enum {
             [i.value getBytes:data length:1];
             _deviceTxPower = data[0];
             _txPowerLabel.text = [self getTxPowerWithIndex:_deviceTxPower];
-        } else if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconPasscodeUUID]]) {
-            _passcodeChar = i;
         }
     }];
 
@@ -273,6 +275,7 @@ typedef enum {
     [self.powerText setText:[NSString stringWithFormat:@"%d", power]];
 
     int passcode = [[self.passcodeText text] intValue];
+    
     if ([self.passcodeText.text length]) {
         if ((passcode < 1) || (passcode > 999999)) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
@@ -324,11 +327,13 @@ forCharacteristic:_measuredPowerChar
     }
     
     if (_passcodeChar) {
+        NSLog(@"passChar %@", _passcodeChar.UUID);
         if (passcode > 0) {
-            buf[2] = (unsigned int) (passcode & 0xff);
+            buf[0] = (unsigned int) (passcode & 0xff);
             buf[1] = (unsigned int) (passcode>>8 & 0xff);
-            buf[0] = (unsigned int) (passcode>>16 & 0xff);
+            buf[2] = (unsigned int) (passcode>>16 & 0xff);
             data = [[NSData alloc] initWithBytes:buf length:3];
+            NSLog(@"data %@", data);
             [p writeValue:data
         forCharacteristic:_passcodeChar
                      type:CBCharacteristicWriteWithResponse];
