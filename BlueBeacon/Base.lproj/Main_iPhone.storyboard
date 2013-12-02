@@ -41,7 +41,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Beacons" id="jsu-BV-EZX"/>
                     <connections>
-                        <segue destination="yvS-ND-HJ9" kind="push" identifier="deviceSegue" id="1R6-tw-duJ"/>
+                        <segue destination="NqB-fy-Srj" kind="push" identifier="deviceSegue" id="iYq-xB-Uov"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ja1-iv-vLY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -49,33 +49,23 @@
             <point key="canvasLocation" x="685" y="437"/>
         </scene>
         <!--Device View Controller - Device-->
-        <scene sceneID="vHL-fZ-mx0">
+        <scene sceneID="gBx-yZ-jpE">
             <objects>
-                <tableViewController id="yvS-ND-HJ9" customClass="YCDeviceViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uZM-sm-SO3">
+                <viewController id="NqB-fy-Srj" customClass="YCDeviceViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iit-d2-vw9"/>
+                        <viewControllerLayoutGuide type="bottom" id="oIh-oI-P8A"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Jw3-qP-fHk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="kmy-eP-gSF">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kmy-eP-gSF" id="9fT-6d-wNF">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="yvS-ND-HJ9" id="eda-lk-4wA"/>
-                            <outlet property="delegate" destination="yvS-ND-HJ9" id="B7T-em-0lr"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Device" id="AgI-0L-fqZ"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rBp-6g-Su9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Device" id="adg-m8-gPr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W21-Ie-I8Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1229" y="437"/>
+            <point key="canvasLocation" x="1213" y="437"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QFZ-zo-5aj">
