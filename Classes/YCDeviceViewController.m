@@ -36,6 +36,7 @@ typedef enum {
 @property (nonatomic) UInt16 deviceMajor;
 @property (nonatomic) UInt16 deviceMinor;
 @property (nonatomic) UInt8 devicePower;
+@property (nonatomic) UInt8 deviceTxPower;
 
 @end
 
@@ -122,18 +123,14 @@ typedef enum {
             
             unsigned char data[1];
             [i.value getBytes:data length:1];
-            UInt8 idx = data[0];
+            _deviceTxPower = data[0];
             
-            NSString *power = _txPowerIndex[idx];
+            NSString *power = _txPowerIndex[_deviceTxPower];
             _txPowerLabel.text = [NSString stringWithFormat:@"Tx Power: %@", power];
         } else if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconPasscodeUUID]]) {
             _passcodeChar = i;
         }
     }];
-
-}
-
-- (void)viewDidAppear:(BOOL)animated {
 
 }
 
@@ -165,7 +162,11 @@ typedef enum {
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
     
+    _deviceTxPower = buttonIndex - 1;
 }
 
 #pragma mark - Custom
@@ -200,6 +201,12 @@ typedef enum {
     NSString *result = [outputString uppercaseString];
     
     return result;
+}
+
+#pragma mark - IBAction
+
+- (IBAction)saveTapped:(id)sender {
+
 }
 
 @end

@@ -22,5 +22,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *txPowerLabel;
 @property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *passcodeText;
 
+- (IBAction)saveTapped:(id)sender;
 
 @end

@@ -160,7 +160,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Device" id="AgI-0L-fqZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="yQd-Ff-Qpf"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="yQd-Ff-Qpf">
+                            <connections>
+                                <action selector="saveTapped:" destination="yvS-ND-HJ9" id="QCu-wS-imm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="majorText" destination="5zX-kU-iL4" id="crw-R9-ZP9"/>
