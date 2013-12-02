@@ -9,6 +9,7 @@
 #import "YCDeviceViewController.h"
 #import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
 #import "YCDefine.h"
+#import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
 
 @interface YCDeviceViewController ()
 
@@ -85,6 +86,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - tableView delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

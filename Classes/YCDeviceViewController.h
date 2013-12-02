@@ -10,7 +10,7 @@
 
 @class BluetoothLEPeripheral;
 
-@interface YCDeviceViewController : UIViewController
+@interface YCDeviceViewController : UITableViewController
 
 @property (nonatomic, strong) BluetoothLEPeripheral *device;
 
