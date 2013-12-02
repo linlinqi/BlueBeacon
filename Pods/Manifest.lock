@@ -1,6 +1,6 @@
 PODS:
-  - JVFloatLabeledTextField (0.0.4)
-  - MDRadialProgress (1.0.0)
+  - JVFloatLabeledTextField (0.0.5)
+  - MRProgress (0.2.2)
   - ReactiveCocoa (2.1.7):
     - ReactiveCocoa/Core
     - ReactiveCocoa/no-arc
@@ -12,7 +12,7 @@ PODS:
 
 DEPENDENCIES:
   - JVFloatLabeledTextField
-  - MDRadialProgress
+  - MRProgress
   - ReactiveCoreBluetooth (from `https://github.com/volca/ReactiveCoreBluetooth.git`)
 
 EXTERNAL SOURCES:
@@ -20,8 +20,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/volca/ReactiveCoreBluetooth.git
 
 SPEC CHECKSUMS:
-  JVFloatLabeledTextField: 479be2062a52fcc1a5d6dafc039a5949810002b9
-  MDRadialProgress: 938b14b69d04a74847c50bfba968e6b515283b0e
+  JVFloatLabeledTextField: 7daac42f450476dc9cfa5b23645e8661b868994b
+  MRProgress: 51af562344c3fe38ce3c0617fd064f6f1ce55cd5
   ReactiveCocoa: 1117f7968c8667d2ca00b5aa47156fabcb56af75
   ReactiveCoreBluetooth: c321c8418f5c410737117bd38d87fe6b4822ef5f
 

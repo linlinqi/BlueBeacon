@@ -1,6 +1,6 @@
 //
-//  YCDeviceViewController.h
-//  BlueBeacon
+//  BluetoothLEPeripheral.m
+//  ReactiveCoreBluetooth
 //
 //  Created by Linlinqi on 13-11-19.
 //  Copyright (c) 2013年 Linlinqi Studio. All rights reserved.

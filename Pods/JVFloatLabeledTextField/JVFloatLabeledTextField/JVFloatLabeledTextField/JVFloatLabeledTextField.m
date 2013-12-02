@@ -64,87 +64,30 @@
     // some basic default fonts/colors
     _floatingLabel.font = [UIFont boldSystemFontOfSize:12.0f];
     _floatingLabelTextColor = [UIColor grayColor];
+    _animateEvenIfNotFirstResponder = NO;
 }
 
-- (void)setPlaceholder:(NSString *)placeholder
+#pragma mark -
+
+- (UIColor *)getLabelActiveColor
 {
-    [super setPlaceholder:placeholder];
-    
-    _floatingLabel.text = placeholder;
-    [_floatingLabel sizeToFit];
-    
-    CGFloat originX = 0.f;
-    
-    if (self.textAlignment == NSTextAlignmentCenter) {
-        originX = (self.frame.size.width/2) - (_floatingLabel.frame.size.width/2);
+    if (_floatingLabelActiveTextColor) {
+        return _floatingLabelActiveTextColor;
     }
-    else if (self.textAlignment == NSTextAlignmentRight) {
-        originX = self.frame.size.width - _floatingLabel.frame.size.width;
+    else if ([self respondsToSelector:@selector(tintColor)]) {
+        return [self performSelector:@selector(tintColor)];
     }
-    
-    _floatingLabel.frame = CGRectMake(originX, _floatingLabel.font.lineHeight+_floatingLabelYPadding.floatValue,
-                                      _floatingLabel.frame.size.width, _floatingLabel.frame.size.height);
+    return [UIColor blueColor];
 }
 
-- (CGRect)textRectForBounds:(CGRect)bounds
-{
-    return UIEdgeInsetsInsetRect([super textRectForBounds:bounds], UIEdgeInsetsMake(_floatingLabel.font.lineHeight+_floatingLabelYPadding.floatValue, 0.0f, 0.0f, 0.0f));
-}
-
-- (CGRect)editingRectForBounds:(CGRect)bounds
-{
-    return UIEdgeInsetsInsetRect([super editingRectForBounds:bounds], UIEdgeInsetsMake(_floatingLabel.font.lineHeight+_floatingLabelYPadding.floatValue, 0.0f, 0.0f, 0.0f));
-}
-
-- (CGRect)clearButtonRectForBounds:(CGRect)bounds
-{
-    CGRect rect = [super clearButtonRectForBounds:bounds];
-    rect = CGRectMake(rect.origin.x, rect.origin.y + (_floatingLabel.font.lineHeight / 2.0) + (_floatingLabelYPadding.floatValue / 2.0f), rect.size.width, rect.size.height);
-    return rect;
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    if (self.floatingLabelFont) {
-        _floatingLabel.font = self.floatingLabelFont;
-    }
-    
-    if (self.isFirstResponder) {
-        if (!self.text || 0 == [self.text length]) {
-            [self hideFloatingLabel:YES];
-        }
-        else {
-            [self setLabelActiveColor];
-            [self showFloatingLabel:YES];
-        }
-    }
-    else {
-        _floatingLabel.textColor = self.floatingLabelTextColor;
-        if (!self.text || 0 == [self.text length]) {
-            [self hideFloatingLabel:NO];
-        }
-        else {
-            [self showFloatingLabel:NO];
-        }
-    }
-}
-
-- (void)setLabelActiveColor
-{
-    if (self.floatingLabelActiveTextColor) {
-        _floatingLabel.textColor = self.floatingLabelActiveTextColor;
-    }
-    else {
-        _floatingLabel.textColor = self.tintColor;
-    }
+- (void) setFloatingLabelFont:(UIFont *)floatingLabelFont {
+    _floatingLabelFont = floatingLabelFont;
+    _floatingLabel.font = (_floatingLabelFont ? _floatingLabelFont : [UIFont boldSystemFontOfSize:12.0f]);
+    self.placeholder = self.placeholder; // Force the label to lay itself out with the new font.
 }
 
 - (void)showFloatingLabel:(BOOL)animated
 {
-    [self setLabelOriginForTextAlignment];
-    
     void (^showBlock)() = ^{
         _floatingLabel.alpha = 1.0f;
         _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
@@ -153,7 +96,7 @@
                                           _floatingLabel.frame.size.height);
     };
     
-    if (animated) {
+    if (animated || _animateEvenIfNotFirstResponder) {
         [UIView animateWithDuration:0.3f
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut
@@ -167,8 +110,6 @@
 
 - (void)hideFloatingLabel:(BOOL)animated
 {
-    [self setLabelOriginForTextAlignment];
-    
     void (^hideBlock)() = ^{
         _floatingLabel.alpha = 0.0f;
         _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
@@ -178,7 +119,7 @@
 
     };
     
-    if (animated) {
+    if (animated || _animateEvenIfNotFirstResponder) {
         [UIView animateWithDuration:0.3f
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseIn
@@ -203,6 +144,60 @@
     
     _floatingLabel.frame = CGRectMake(originX, _floatingLabel.frame.origin.y,
                                       _floatingLabel.frame.size.width, _floatingLabel.frame.size.height);
+}
+
+#pragma mark - UITextField
+
+- (void)setPlaceholder:(NSString *)placeholder
+{
+    [super setPlaceholder:placeholder];
+    
+    _floatingLabel.text = placeholder;
+    [_floatingLabel sizeToFit];
+}
+
+- (CGRect)textRectForBounds:(CGRect)bounds
+{
+    return UIEdgeInsetsInsetRect([super textRectForBounds:bounds], UIEdgeInsetsMake(ceilf(_floatingLabel.font.lineHeight+_floatingLabelYPadding.floatValue), 0.0f, 0.0f, 0.0f));
+}
+
+- (CGRect)editingRectForBounds:(CGRect)bounds
+{
+    return UIEdgeInsetsInsetRect([super editingRectForBounds:bounds], UIEdgeInsetsMake(ceilf(_floatingLabel.font.lineHeight+_floatingLabelYPadding.floatValue), 0.0f, 0.0f, 0.0f));
+}
+
+- (CGRect)clearButtonRectForBounds:(CGRect)bounds
+{
+    CGRect rect = [super clearButtonRectForBounds:bounds];
+    rect = CGRectMake(rect.origin.x, rect.origin.y + (_floatingLabel.font.lineHeight / 2.0) + (_floatingLabelYPadding.floatValue / 2.0f), rect.size.width, rect.size.height);
+    return rect;
+}
+
+- (void)setTextAlignment:(NSTextAlignment)textAlignment
+{
+    [super setTextAlignment:textAlignment];
+    
+    [self setNeedsLayout];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    [self setLabelOriginForTextAlignment];
+    
+    if (self.floatingLabelFont) {
+        _floatingLabel.font = self.floatingLabelFont;
+    }
+    
+    BOOL firstResponder = self.isFirstResponder;
+    _floatingLabel.textColor = (firstResponder && self.text && self.text.length > 0 ? self.getLabelActiveColor : self.floatingLabelTextColor);
+    if (!self.text || 0 == [self.text length]) {
+        [self hideFloatingLabel:firstResponder];
+    }
+    else {
+        [self showFloatingLabel:firstResponder];
+    }
 }
 
 @end
