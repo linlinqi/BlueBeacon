@@ -10,9 +10,11 @@
 
 @class BluetoothLEPeripheral;
 @class JVFloatLabeledTextField;
+@class BluetoothLEService;
 
 @interface YCDeviceViewController : UITableViewController <UIActionSheetDelegate>
 
+@property (nonatomic, weak) BluetoothLEService *bleService;
 @property (nonatomic, strong) BluetoothLEPeripheral *device;
 
 @property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *serviceText;
