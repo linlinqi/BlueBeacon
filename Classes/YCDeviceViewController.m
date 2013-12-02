@@ -253,8 +253,7 @@ typedef enum {
     [self.minorText setText:[NSString stringWithFormat:@"%d", minor]];
     
     int power = [[self.powerText text] intValue];
-    if ((power > -1) || (power < -256))
-    {
+    if ((power > -1) || (power < -256)) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                             message:@"Power not valid!"
                                                            delegate:self
@@ -265,6 +264,18 @@ typedef enum {
     }
     [self.powerText setText:[NSString stringWithFormat:@"%d", power]];
     
+    int passcode = [[self.passcodeText text] intValue];
+    if ((passcode < 1) || (passcode > 999999)) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"Passcode not valid!"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    [self.passcodeText setText:[NSString stringWithFormat:@"%d", passcode]];
+
     NSData *data = uuid.data;
     NSLog(@"uuid %@ char %@", uuid, _proximityChar);
     CBPeripheral *p = _device.device;
@@ -272,14 +283,13 @@ typedef enum {
 forCharacteristic:_proximityChar
              type:CBCharacteristicWriteWithResponse];
     
-    uint8_t buf[] = {0x00 , 0x00};
+    uint8_t buf[] = {0x00, 0x00, 0x00};
     buf[1] =  (unsigned int) (major & 0xff);
     buf[0] =  (unsigned int) (major>>8 & 0xff);
     data = [[NSData alloc] initWithBytes:buf length:2];
     [p writeValue:data
 forCharacteristic:_majorChar
              type:CBCharacteristicWriteWithResponse];
-    
     
     buf[1] =  (unsigned int) (minor & 0xff);
     buf[0] =  (unsigned int) (minor>>8 & 0xff);
@@ -295,6 +305,21 @@ forCharacteristic:_minorChar
 forCharacteristic:_measuredPowerChar
              type:CBCharacteristicWriteWithResponse];
     
+    buf[0] = _deviceTxPower;
+    data = [[NSData alloc] initWithBytes:buf length:1];
+    [p writeValue:data
+forCharacteristic:_txPowerChar
+             type:CBCharacteristicWriteWithResponse];
+    
+    if (passcode > 0) {
+        buf[2] = (unsigned int) (passcode & 0xff);
+        buf[1] = (unsigned int) (passcode>>8 & 0xff);
+        buf[0] = (unsigned int) (passcode>>16 & 0xff);
+        data = [[NSData alloc] initWithBytes:buf length:3];
+        [p writeValue:data
+    forCharacteristic:_passcodeChar
+                 type:CBCharacteristicWriteWithResponse];
+    }
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"Update successful, please restart BlueBeacon!"
