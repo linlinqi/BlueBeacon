@@ -1,0 +1,1 @@
+PODS_MDRADIALPROGRESS_OTHER_LDFLAGS = -framework QuartzCore

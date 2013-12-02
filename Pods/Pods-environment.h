@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_JVFloatLabeledTextField 0
 #define COCOAPODS_VERSION_PATCH_JVFloatLabeledTextField 4
 
+// MDRadialProgress
+#define COCOAPODS_POD_AVAILABLE_MDRadialProgress
+#define COCOAPODS_VERSION_MAJOR_MDRadialProgress 1
+#define COCOAPODS_VERSION_MINOR_MDRadialProgress 0
+#define COCOAPODS_VERSION_PATCH_MDRadialProgress 0
+
 // ReactiveCocoa
 #define COCOAPODS_POD_AVAILABLE_ReactiveCocoa
 #define COCOAPODS_VERSION_MAJOR_ReactiveCocoa 2
