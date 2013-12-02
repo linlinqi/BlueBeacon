@@ -49,6 +49,8 @@ typedef enum {
  
     _txPowerIndex = @[@"0dBm", @"4dBm", @"-6dBm", @"-23dBm"];
     
+    [MRProgressOverlayView showOverlayAddedTo:self.tableView animated:YES];
+    
     [[_device.discoveredServicesSignal
       filter:^(CBPeripheral *p) {
           CBUUID *serviceUUID = [CBUUID UUIDWithString:kBeaconServiceUUID];
@@ -73,6 +75,7 @@ typedef enum {
     }];
     
     [_device.updatedValueSignal subscribeNext:^(CBCharacteristic *i) {
+        [MRProgressOverlayView dismissAllOverlaysForView:self.tableView animated:NO];
         if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconProximityUUID]]) {
             _proximityChar = i;
             NSString *temp = [self getHexString:i.value];
@@ -109,7 +112,7 @@ typedef enum {
             [i.value getBytes:data length:2];
             _deviceMinor = data[0] << 8 | data[1];
             
-            [self.minorText setText:[NSString stringWithFormat:@"%d", _deviceMajor]];
+            [self.minorText setText:[NSString stringWithFormat:@"%d", _deviceMinor]];
         } else if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconMeasuredPowerUUID]]) {
             _measuredPowerChar = i;
             
@@ -268,18 +271,20 @@ typedef enum {
         return;
     }
     [self.powerText setText:[NSString stringWithFormat:@"%d", power]];
-    
+
     int passcode = [[self.passcodeText text] intValue];
-    if ((passcode < 1) || (passcode > 999999)) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:@"Passcode not valid!"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-        [alertView show];
-        return;
+    if ([self.passcodeText.text length]) {
+        if ((passcode < 1) || (passcode > 999999)) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                                message:@"Passcode not valid!"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+            [alertView show];
+            return;
+        }
+        [self.passcodeText setText:[NSString stringWithFormat:@"%d", passcode]];
     }
-    [self.passcodeText setText:[NSString stringWithFormat:@"%d", passcode]];
 
     NSData *data = uuid.data;
     NSLog(@"uuid %@ char %@", uuid, _proximityChar);
