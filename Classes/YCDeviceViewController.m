@@ -10,6 +10,7 @@
 #import <ReactiveCoreBluetooth/ReactiveCoreBluetooth.h>
 #import "YCDefine.h"
 #import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
+#import <MRProgress/MRProgress.h>
 
 typedef enum {
     BBTxPower0DBM = 0,
@@ -309,20 +310,25 @@ forCharacteristic:_minorChar
 forCharacteristic:_measuredPowerChar
              type:CBCharacteristicWriteWithResponse];
     
-    buf[0] = _deviceTxPower;
-    data = [[NSData alloc] initWithBytes:buf length:1];
-    [p writeValue:data
-forCharacteristic:_txPowerChar
-             type:CBCharacteristicWriteWithResponse];
-    
-    if (passcode > 0) {
-        buf[2] = (unsigned int) (passcode & 0xff);
-        buf[1] = (unsigned int) (passcode>>8 & 0xff);
-        buf[0] = (unsigned int) (passcode>>16 & 0xff);
-        data = [[NSData alloc] initWithBytes:buf length:3];
+    if (_txPowerChar) {
+        buf[0] = _deviceTxPower;
+        data = [[NSData alloc] initWithBytes:buf length:1];
         [p writeValue:data
-    forCharacteristic:_passcodeChar
+    forCharacteristic:_txPowerChar
                  type:CBCharacteristicWriteWithResponse];
+    }
+    
+    if (_passcodeChar) {
+        if (passcode > 0) {
+            buf[2] = (unsigned int) (passcode & 0xff);
+            buf[1] = (unsigned int) (passcode>>8 & 0xff);
+            buf[0] = (unsigned int) (passcode>>16 & 0xff);
+            data = [[NSData alloc] initWithBytes:buf length:3];
+            [p writeValue:data
+        forCharacteristic:_passcodeChar
+                     type:CBCharacteristicWriteWithResponse];
+        }
+
     }
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
