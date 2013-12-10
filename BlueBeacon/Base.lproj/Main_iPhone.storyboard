@@ -51,7 +51,6 @@
         <!--Device View Controller - Device-->
         <scene sceneID="vHL-fZ-mx0">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rBp-6g-Su9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="yvS-ND-HJ9" customClass="YCDeviceViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uZM-sm-SO3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -135,8 +134,24 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="48" id="7bs-SL-Qzv">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="48" id="n4Z-rK-75C">
                                         <rect key="frame" x="0.0" y="300" width="320" height="48"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n4Z-rK-75C" id="aUO-da-bJr">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Advertising Frequency" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tgm-Ao-jhy" customClass="JVFloatLabeledTextField">
+                                                    <rect key="frame" x="20" y="2" width="287" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="48" id="7bs-SL-Qzv">
+                                        <rect key="frame" x="0.0" y="348" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7bs-SL-Qzv" id="0Lb-Di-m7T">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
@@ -175,6 +190,7 @@
                         <outlet property="txPowerLabel" destination="q2S-d3-3Ed" id="Mk1-uj-vgc"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rBp-6g-Su9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1229" y="437"/>
         </scene>
