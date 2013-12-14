@@ -297,7 +297,21 @@ typedef enum {
         }
         [self.passcodeText setText:[NSString stringWithFormat:@"%d", passcode]];
     }
-
+    
+    int advInterval = [[self.advIntervalText text] intValue];
+    if (_advIntervalChar) {
+        if ((advInterval < 1) || (advInterval > 255)) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                                message:@"Advertising frequency not valid!"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+            [alertView show];
+            return;
+        }
+        [self.advIntervalText setText:[NSString stringWithFormat:@"%d", advInterval]];
+    }
+    
     NSData *data = uuid.data;
     NSLog(@"uuid %@ char %@", uuid, _proximityChar);
     CBPeripheral *p = _device.device;
@@ -347,6 +361,15 @@ forCharacteristic:_measuredPowerChar
         forCharacteristic:_passcodeChar
                      type:CBCharacteristicWriteWithResponse];
         }
+
+    }
+    
+    if (_advIntervalChar) {
+        buf[0] = advInterval;
+        data = [[NSData alloc] initWithBytes:buf length:1];
+        [p writeValue:data
+    forCharacteristic:_advIntervalChar
+                 type:CBCharacteristicWriteWithResponse];
 
     }
     

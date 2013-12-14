@@ -141,7 +141,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Advertising Frequency" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tgm-Ao-jhy" customClass="JVFloatLabeledTextField">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Advertising Freq (1~255) Unit: 100ms" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tgm-Ao-jhy" customClass="JVFloatLabeledTextField">
                                                     <rect key="frame" x="20" y="2" width="287" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
