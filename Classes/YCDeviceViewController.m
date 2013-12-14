@@ -30,6 +30,7 @@ typedef enum {
 @property (nonatomic, strong) CBCharacteristic *measuredPowerChar;
 @property (nonatomic, strong) CBCharacteristic *txPowerChar;
 @property (nonatomic, strong) CBCharacteristic *passcodeChar;
+@property (nonatomic, strong) CBCharacteristic *advIntervalChar;
 
 @property (nonatomic, strong) NSArray *txPowerIndex;
 
@@ -38,6 +39,7 @@ typedef enum {
 @property (nonatomic) UInt16 deviceMinor;
 @property (nonatomic) UInt8 devicePower;
 @property (nonatomic) UInt8 deviceTxPower;
+@property (nonatomic) UInt8 deviceAdvInterval;
 
 @end
 
@@ -133,6 +135,13 @@ typedef enum {
             [i.value getBytes:data length:1];
             _deviceTxPower = data[0];
             _txPowerLabel.text = [self getTxPowerWithIndex:_deviceTxPower];
+        } else if ([i.UUID isEqual:[CBUUID UUIDWithString:kBeaconAdvIntervalUUID]]) {
+            _advIntervalChar = i;
+            
+            unsigned char data[1];
+            [i.value getBytes:data length:1];
+            _deviceAdvInterval = data[0];
+            _advIntervalText.text = [NSString stringWithFormat:@"%d", _deviceAdvInterval];
         }
     }];
 

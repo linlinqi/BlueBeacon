@@ -182,6 +182,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="advIntervalText" destination="Tgm-Ao-jhy" id="eHF-fj-dHT"/>
                         <outlet property="majorText" destination="5zX-kU-iL4" id="crw-R9-ZP9"/>
                         <outlet property="minorText" destination="9ch-Jc-t8Z" id="KfD-8j-r6o"/>
                         <outlet property="passcodeText" destination="ZEf-M6-CV7" id="ct2-cr-XPH"/>

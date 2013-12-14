@@ -23,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *powerText;
 @property (strong, nonatomic) IBOutlet UILabel *txPowerLabel;
 @property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *passcodeText;
+@property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *advIntervalText;
 
 - (IBAction)saveTapped:(id)sender;
 

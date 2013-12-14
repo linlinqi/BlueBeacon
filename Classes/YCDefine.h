@@ -17,3 +17,4 @@
 #define kBeaconMeasuredPowerUUID    @"FFF4"
 #define kBeaconTxPowerUUID          @"FFF5"
 #define kBeaconPasscodeUUID         @"FFF6"
+#define kBeaconAdvIntervalUUID      @"FFF7"
