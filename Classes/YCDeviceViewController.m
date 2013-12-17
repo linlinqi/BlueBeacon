@@ -19,7 +19,8 @@ typedef enum {
     BBTxPowerMinus23DBM = 3
 } BBTxPower;
 
-#define kTxPowerCellIndex 0
+#define kTxPowerCellIndex       0
+#define kDefaultProximityUUID   @"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"
 
 @interface YCDeviceViewController ()
 
@@ -87,7 +88,7 @@ typedef enum {
             NSString *temp = [self getHexString:i.value];
             
             if ([temp length] == 0) {
-                temp = @"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0";
+                temp = kDefaultProximityUUID;
             }
             
             NSRange r1 = NSMakeRange(8, 4);
