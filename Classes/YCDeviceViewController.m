@@ -86,6 +86,10 @@ typedef enum {
             _proximityChar = i;
             NSString *temp = [self getHexString:i.value];
             
+            if ([temp length] == 0) {
+                temp = @"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0";
+            }
+            
             NSRange r1 = NSMakeRange(8, 4);
             NSRange r2 = NSMakeRange(12, 4);
             NSRange r3 = NSMakeRange(16, 4);
