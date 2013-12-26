@@ -227,6 +227,9 @@ typedef enum {
 }
 
 - (NSString *)getTxPowerWithIndex:(NSInteger)index {
+    if ((index > BBTxPowerMinus23DBM) || (index < BBTxPower0DBM)) {
+        index = 0;
+    }
     NSString *power = _txPowerIndex[index];
     return [NSString stringWithFormat:@"Tx Power: %@", power];
 }
