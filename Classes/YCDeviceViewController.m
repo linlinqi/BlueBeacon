@@ -308,7 +308,7 @@ typedef enum {
     
     int advInterval = [[self.advIntervalText text] intValue];
     if (_advIntervalChar) {
-        if ((advInterval < 1) || (advInterval > 255)) {
+        if ((advInterval < 1) || (advInterval > 100)) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                                 message:@"Advertising frequency not valid!"
                                                                delegate:self
