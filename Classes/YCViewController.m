@@ -30,7 +30,7 @@
     
     [_bleService.availableDevicesSignal subscribeNext:^(NSArray *devices) {
         for (CBPeripheral *p in devices) {
-            if (![_availableDevices containsObject:p] && [p.name isEqualToString:kBeaconName]) {
+            if (![_availableDevices containsObject:p]) {
                 [_availableDevices addObject:p];
             }
         }
@@ -38,18 +38,24 @@
         [self.refreshControl endRefreshing];
     }];
     
-    [_bleService.peripheralConnectedSignal subscribeNext:^(CBPeripheral* device) {
+    [_bleService.peripheralConnectedSignal subscribeNext:^(CBPeripheral *device) {
         NSLog(@"Connected to %@", device.name);
         [device discoverServices:nil];
     }];
     
-    [self startScan];
+    [_bleService.peripheralDisconnectedSignal subscribeNext:^(CBPeripheral *device) {
+        [_deviceController.navigationController popViewControllerAnimated:YES];
+    }];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(startScan)
                   forControlEvents:UIControlEventValueChanged];
 
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self startScan];
 }
 
 - (void)didReceiveMemoryWarning
